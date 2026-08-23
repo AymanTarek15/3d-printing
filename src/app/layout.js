@@ -49,7 +49,7 @@ const superCreamy = localFont({
 });
 
 const goudyOldStyle = localFont({
-  src: "./fonts/Goudy-old-style.TTF",
+  src: "./fonts/goudy-old-style.ttf",
   variable: "--font-goudy-old-style",
   display: "swap",
 });
