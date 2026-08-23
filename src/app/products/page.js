@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import ProductCard from "@/components/cards/ProductCard";
 import Section from "@/components/ui/Section";
 import Link from "next/link";

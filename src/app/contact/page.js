@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import Section from "@/components/ui/Section"
 import ContactForm from "@/components/sections/ContactForm"
 

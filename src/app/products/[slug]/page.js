@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { getProduct } from "@/app/lib/api";
 import ProductDetailClient from "@/components/product/ProductDetailClient";
 import './page.css'
