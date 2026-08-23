@@ -7,23 +7,21 @@ import './AllProducts.modules.css'
 
 
 export default function AllProducts({ products }) {
-  console.log(products);
-  // selectedBestProducts=products.filter((p)=>p.id==1)
-  
+  const hasProducts = Array.isArray(products) && products.length > 0;
+
   return (
     <Section id="all-products" className="all-products">
       <div className="sectionTitle">
         <h2 className="h2">All Products</h2>
-        {/* <p className="muted" style={{marginTop:8}}>Top-rated designs our customers love.</p> */}
       </div>
 
-      <div className="All-products-Grid">
-        {products?.map(p => <ProductCard key={p.id} product={p} />)}
-      </div>
-      <div className="view-all-container">
-
-    
-      </div>
+      {hasProducts ? (
+        <div className="All-products-Grid">
+          {products.map(p => <ProductCard key={p.id} product={p} />)}
+        </div>
+      ) : (
+        <p className="emptyState">No products yet — please check back soon.</p>
+      )}
     </Section>
   );
 }

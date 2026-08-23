@@ -9,7 +9,7 @@
 }
 
 .pBody { padding:16px; display:flex; flex-direction:column; gap:10px; }
-.pTitle { font-weight:700; color:var(--text); text-decoration:none; text-align: center; }
+.pTitle { display:block; font-weight:700; color:var(--text); text-decoration:none; text-align: center; }
 .pTitle:hover { text-decoration:underline; }
 
 .pMeta { display:flex; align-items:center; justify-content:center; gap:10px; }

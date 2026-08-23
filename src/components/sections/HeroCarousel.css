@@ -1,94 +1,89 @@
-/* --- Carousel --- */
-.carousel { position: relative; }
-@media (min-width:1500px) {
-  .carousel{
-    /* margin: 0 100px; */
-    max-width: 80%;
-    margin: auto;
-  }
-}
-.carouselViewport { overflow: hidden; border-radius: 20px; background: transparent; }
-.carouselTrack {
-  display: flex;
-  transition: transform 420ms ease;
-  will-change: transform;
-}
-.carouselSlide {
-  min-width: 100%;
-  padding: 0; /* slides already have spacing via Section */
+/* --- Hero --- */
+.hero {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(1100px 500px at 85% -10%, var(--brand-background), transparent 60%),
+    linear-gradient(180deg, #ffffff 0%, var(--bg) 100%);
 }
 
-/* Controls */
-.carouselControls {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  pointer-events: none;
-}
-
-.btn-primary{
-  background-color: var(--brand);
-  /* color: var(--brand); */
-}
-.ctrl {
-  pointer-events: auto;
-  border: 0;
-  background: rgba(0,0,0,0.35);
-  color: #fff;
-  width: 36px; height: 36px;
-  border-radius: 999px;
-  font-size: 20px;
-  line-height: 36px;
-  display: grid; place-items: center;
-  margin: 0 10px;
-}
-
-.h1{
-  color: var(--brand);
-  /* text-shadow: black 1px 1px 1px ; */
-}
-.ctrl:hover { background: rgba(0,0,0,0.5); }
-
-/* Dots (uses your existing .dots/.dot styles; just spacing here) */
-.carousel .dots { margin-top: 24px; }
-
-/* Ensure hero layout inside slides still aligns */
-.heroRow { display:grid; gap: 28px; align-items:center; }
-/* @media (min-width: 992px){ .heroRow { grid-template-columns: 1.3fr 1fr; } }
-.heroImageWrap { display:flex; justify-content:center; }
-.heroImage { width:100%; max-width:520px; height:auto; border-radius:20px; background:#f0f0ea; } */
-
-
-
-
-/* Always keep two columns */
-.heroRow{
+.heroRow {
   display: grid;
-  grid-template-columns: 1fr 1fr;   /* <- two columns on all viewports */
+  grid-template-columns: 1.15fr 0.85fr;
   align-items: center;
-  gap: 16px;
+  gap: 40px;
+}
+.heroRow > div { min-width: 0; }
+
+.heroEyebrow {
+  display: inline-block;
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand);
+  background: var(--brand-background);
+  padding: 6px 12px;
+  border-radius: 999px;
+  margin-bottom: 18px;
 }
 
-/* Make text and image fit comfortably on small screens */
-.heroRow > div { min-width: 0; }     /* allow wrapping instead of overflow */
+.heroTitle { margin: 0 0 16px; }
+.heroAccent {
+  color: var(--cta);
+  -webkit-text-stroke: 1px var(--brand);
+}
 
-.heroImageWrap { display:flex; justify-content:center; }
-.heroImage{
+.heroSub {
+  font-size: 1.08rem;
+  max-width: 46ch;
+  margin: 0 0 28px;
+}
+
+.heroCtas { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 36px; }
+
+/* Feature strip under the CTAs */
+.heroFeatures {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 14px;
+}
+@media (min-width: 560px) {
+  .heroFeatures { grid-template-columns: repeat(3, 1fr); gap: 18px; }
+}
+.heroFeature { display: flex; gap: 10px; align-items: flex-start; }
+.heroFeature strong { display: block; font-size: 0.95rem; }
+.heroFeature .muted { font-size: 0.82rem; line-height: 1.4; }
+.heroFeatureDot {
+  flex: 0 0 auto;
+  width: 10px; height: 10px;
+  margin-top: 5px;
+  border-radius: 999px;
+  background: var(--cta);
+  box-shadow: 0 0 0 4px var(--brand-background);
+}
+
+/* Artwork */
+.heroArt { display: flex; justify-content: center; align-items: center; }
+.heroArtSvg {
   width: 100%;
-  max-width: 44vw;                   /* tie image to viewport width */
+  max-width: 420px;
   height: auto;
-  border-radius: 20px;
-  background: #f0f0ea;
+  filter: drop-shadow(0 24px 40px rgba(15, 94, 58, 0.18));
 }
 
-/* Tighten spacing & scale type on very small phones */
-@media (max-width: 480px){
+/* Responsive: stack on tablet/phone, art first */
+@media (max-width: 900px) {
+  .heroRow { grid-template-columns: 1fr; gap: 24px; }
+  .heroArt { order: -1; }
+  .heroArtSvg { max-width: 300px; }
+}
+@media (max-width: 480px) {
   .section { padding: 40px 0; }
-  .container { padding-inline: 12px; }
-  .h1 { font-size: clamp(1.4rem, 6vw, 2rem); line-height: 1.15; }
-  .muted { font-size: 0.95rem; }
-  .heroImage{ max-width: 42vw; }
-  .dots { margin-top: 16px; }
+  .container { padding-inline: 16px; }
+  .heroSub { font-size: 1rem; }
+  .heroArtSvg { max-width: 240px; }
 }

@@ -67,25 +67,32 @@ const handleWishlistToggle = (e) => {
       </div>
 
       <div className="pBody">
-        <h3 className="pTitle">{title}</h3>
-        {/* <div className="pMeta"> */}
-          {/* <Rating value={rating} /> */}
-          {/* <span className="pPrice">{formatPrice(price)}</span>
-        </div> */}
+        <Link href={`/products/${title}`} className="pTitle">{title}</Link>
+
+        <div className="pMeta">
+          {rating > 0 && <Rating value={rating} />}
+          <span className="pPrice">{formatPrice(price)}</span>
+        </div>
 
         <div className="pActions">
-          {/* <Link href={''}  className="btn btn-primary" style={{justifyContent:'center'}}
-          onClick={(e) =>{
-            e.preventDefault()
-          dispatch(
-            addItem(
-              product
-            )
-          )
-          
-        }}
-          >Add to Cart</Link> */}
-          {/* <Link href={`/products/${title}`} className="btn btn-ghost hidden-in-small-btn" style={{justifyContent:'center'}}>Details</Link> */}
+          <button
+            type="button"
+            className="btn btn-primary"
+            style={{ justifyContent: "center" }}
+            onClick={(e) => {
+              e.preventDefault();
+              dispatch(addItem({ id, title, price, image_url, qty: 1 }));
+            }}
+          >
+            Add to Cart
+          </button>
+          <Link
+            href={`/products/${title}`}
+            className="btn btn-ghost hidden-in-small-btn"
+            style={{ justifyContent: "center" }}
+          >
+            Details
+          </Link>
         </div>
       </div>
     </article>

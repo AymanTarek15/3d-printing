@@ -15,6 +15,7 @@ import { config } from "@fortawesome/fontawesome-svg-core";
 import { getCategories, getSeason } from "./lib/api";
 import Providers from "./Providers";
 import localFont from "next/font/local";
+import { Inter, Space_Grotesk } from "next/font/google";
 
 
 
@@ -26,8 +27,23 @@ default: site.name,
 template: `%s · ${site.name}`,
 },
 description: site.description,
-metadataBase: new URL("https://example.com"),
+metadataBase: new URL("https://3d-printing-six.vercel.app"),
 }
+
+
+// UI type system: Space Grotesk for headings, Inter for body.
+const bodyFont = Inter({
+  subsets: ["latin"],
+  variable: "--font-body",
+  display: "swap",
+});
+
+const displayFont = Space_Grotesk({
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
+  variable: "--font-display",
+  display: "swap",
+});
 
 
 // Local font imports
@@ -66,7 +82,7 @@ export default async function RootLayout({ children }) {
   
 return (
 <html lang="en"
-className={`${ahNaskhHadith.variable} ${blabeloo.variable} ${superCreamy.variable} ${goudyOldStyle.variable}`}
+className={`${bodyFont.variable} ${displayFont.variable} ${ahNaskhHadith.variable} ${blabeloo.variable} ${superCreamy.variable} ${goudyOldStyle.variable}`}
     >
 <body>
   <Providers>

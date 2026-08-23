@@ -1,103 +1,93 @@
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE
+const API_BASE = process.env.NEXT_PUBLIC_API_BASE;
 
+// How long to wait for the backend before giving up. Keeps a slow/sleeping
+// backend (e.g. Render free-tier cold start) from hanging the whole render.
+const DEFAULT_TIMEOUT_MS = 10000;
 
-// To fetch all active categories
+/**
+ * Resilient GET helper for server-side data fetching.
+ * - Never throws: returns `fallback` on any error (network, timeout, non-2xx, bad JSON).
+ * - Aborts after `timeoutMs` so the page can render its empty state instead of a 500.
+ * - Normalizes DRF-style `{ results: [...] }` payloads when `fallback` is an array.
+ */
+async function apiGet(path, { fallback = [], timeoutMs = DEFAULT_TIMEOUT_MS } = {}) {
+  if (!API_BASE) {
+    console.error("NEXT_PUBLIC_API_BASE is not set — skipping fetch:", path);
+    return fallback;
+  }
+
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+
+  try {
+    const res = await fetch(`${API_BASE}${path}`, {
+      cache: "no-store",
+      headers: { Accept: "application/json" },
+      signal: controller.signal,
+    });
+
+    if (!res.ok) {
+      console.error(`Fetch ${path} failed:`, res.status);
+      return fallback;
+    }
+
+    // 204 No Content (e.g. no active season) has an empty body.
+    if (res.status === 204) return fallback;
+
+    const data = await res.json();
+
+    if (Array.isArray(fallback)) {
+      return Array.isArray(data) ? data : data?.results || fallback;
+    }
+    return data ?? fallback;
+  } catch (err) {
+    const reason = err?.name === "AbortError" ? "timed out" : err?.message;
+    console.error(`Fetch ${path} error (${reason})`);
+    return fallback;
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+// All active categories
 export async function getCategories() {
-  try {
-    const res = await fetch(`${API_BASE}/product/category-filter/?active=true`, {
-      cache: "no-store", // always fetch fresh data
-      headers: { Accept: "application/json" },
-    });
-
-    if (!res.ok) {
-      console.error("Failed to fetch categories:", res.status);
-      return [];
-    }
-
-    const data = await res.json();
-    // console.log(data);
-    
-    // If API returns {results:[...]} instead of [...], normalize it:
-    return Array.isArray(data) ? data : data.results || [];
-  } catch (err) {
-    console.error("Error fetching categories:", err);
-    return [];
-  }
+  return apiGet("/product/category-filter/?active=true", { fallback: [] });
 }
 
-
-// To fetch seasons and events
+// Active season / event (single object, or {} when none is active)
 export async function getSeason() {
-  try {
-    const res = await fetch(`${API_BASE}/product/season-change/`, {
-      cache: "no-store", // always fetch fresh data
-      headers: { Accept: "application/json" },
-    });
-
-    if (!res.ok) {
-      console.error("Failed to fetch season:", res.status);
-      return [];
-    }
-
-    const data = await res.json();
-    // console.log(data);
-    
-    // If API returns {results:[...]} instead of [...], normalize it:
-    return data
-  } catch (err) {
-    console.error("Error fetching season:", err);
-    return [];
-  }
+  return apiGet("/product/season-change/", { fallback: {} });
 }
 
-
-// To fetch bestselling active products
-export async function getBestSelling(){
-  const resBestSellingProducts=await fetch(`${API_BASE}/product/list-filter/?active=true&best_selling=true`)
-  const bestSellingProducts=await resBestSellingProducts.json();
-  return bestSellingProducts
-
+// Bestselling active products
+export async function getBestSelling() {
+  return apiGet("/product/list-filter/?active=true&best_selling=true", { fallback: [] });
 }
 
-
-// To fetch a specific active category
+// Active products in a specific category
 export async function getSpecificCategory(slug) {
-  const res=await fetch(`${API_BASE}/product/list-filter/?active=true&category__name=${slug}`)
-  const products= await res.json();
-  return products
+  return apiGet(
+    `/product/list-filter/?active=true&category__name=${encodeURIComponent(slug)}`,
+    { fallback: [] }
+  );
 }
 
-
-// To fetch all active products
+// All active products
 export async function getAllProducts() {
-  const res=await fetch(`${API_BASE}/product/list-filter/?active=true`)
-  const products= await res.json();
-  return products
+  return apiGet("/product/list-filter/?active=true", { fallback: [] });
 }
 
-
-
+// A single product by title (returns a list; caller takes [0])
 export async function getProduct(slug) {
-  const res = await fetch(`${API_BASE}/product/list-filter/?title=${slug}`);
-  const product=await res.json()
-  // if (!res.ok) return null;
-  // const data = await res.json();
-  // // API may return an array or an object; normalize to single product
-  // const list = Array.isArray(data) ? data : (data.results || []);
-  // return Array.isArray(list) ? list[0] : data;
-  return product
+  return apiGet(`/product/list-filter/?title=${encodeURIComponent(slug)}`, { fallback: [] });
 }
 
 export async function postCheckout(payload) {
   const res = await fetch(`${API_BASE}/product/shipping/`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json", Accept: "application/json" },
-      body: JSON.stringify(payload),
-    });
-    
-    return res
-  }
+    method: "POST",
+    headers: { "Content-Type": "application/json", Accept: "application/json" },
+    body: JSON.stringify(payload),
+  });
 
-
-
-  
+  return res;
+}

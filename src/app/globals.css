@@ -61,7 +61,8 @@ background: var(--bg);
 -webkit-font-smoothing: antialiased;
 -moz-osx-font-smoothing: grayscale;
 margin: 0;
-font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+font-family: var(--font-body), system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+line-height: 1.6;
 }
 
 
@@ -72,8 +73,8 @@ font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-
   }
 }
 .section { padding: 64px 0; }
-.h1 { font-size: clamp(2rem, 3.5vw, 3.25rem); font-weight: 800; letter-spacing: -0.02em; color: var(--brand); }
-.h2 { font-size: clamp(1.5rem, 2.5vw, 2.25rem); font-weight: 700; color: var(--brand); }
+.h1 { font-family: var(--font-display), system-ui, sans-serif; font-size: clamp(2.25rem, 4vw, 3.5rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1.05; color: var(--brand); }
+.h2 { font-family: var(--font-display), system-ui, sans-serif; font-size: clamp(1.6rem, 2.6vw, 2.35rem); font-weight: 600; letter-spacing: -0.02em; line-height: 1.15; color: var(--brand); }
 .muted { color: var(--muted); }
 .btn { display: inline-flex; align-items: center; gap: 8px; border-radius: 14px; padding: 12px 18px; font-weight: 600; border: 1px solid var(--border); background: var(--btn-bg); color: var(--btn-fg); cursor: pointer; transition: 160ms ease; text-decoration: none; }
 .btn:hover { filter: brightness(0.96); color: var(--cta);}
@@ -93,3 +94,13 @@ font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-
 
 /* sections.css */
 .pGrid { display: grid; gap: 24px; }
+
+/* Empty states for product sections */
+.emptyState {
+  text-align: center;
+  color: var(--muted);
+  padding: 48px 16px;
+  border: 1px dashed var(--border);
+  border-radius: 16px;
+  background: var(--surface);
+}
