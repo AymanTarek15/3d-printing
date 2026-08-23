@@ -1,0 +1,119 @@
+.header {
+  position: sticky; top: 0; z-index: 50;
+  background: var(--brand);
+  border-bottom: 1px solid rgba(0,0,0,.06);
+}
+.navbar { height: 68px; display:flex; align-items:center; justify-content:space-between; }
+.brand { display:flex; align-items:center; gap:12px; text-decoration:none; color: var(--brand-contrast); }
+.brand img { height: 36px; width:auto; }
+
+.nav { display:none; gap:28px; align-items:center; }
+.nav a { color: var(--brand-contrast); text-decoration:none; font-weight:600; }
+.nav a:hover { opacity:.85; }
+
+.menuBtn { background:transparent; border:0; font-size:22px; color:var(--brand-contrast); cursor:pointer; }
+@media (min-width: 768px){ .nav{display:flex} .menuBtn{display:none} }
+
+.mobileNav { background: var(--brand); }
+.mobileNavInner { padding: 12px 0; display:grid; gap:12px; }
+.mobileNavInner a { color: var(--brand-contrast); text-decoration:none; }
+
+
+
+/* ===== Dropdown ===== */
+.nav .navItem { position: relative; }
+.nav .menuTrigger{
+  background: transparent; border: 0; color: var(--brand-contrast);
+  font-weight: 600; cursor: pointer; display: inline-flex; align-items: center;
+}
+.dropdownMenu{
+  position: absolute; top: calc(100% + 10px); left: 0;
+  min-width: 220px; background: #fff; color: #111;
+  border: 1px solid var(--border); border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.12);
+  padding: 8px; display: none; z-index: 60;
+}
+.navItem.isOpen .dropdownMenu{ display: block; }
+.dropLink{
+  display:block; padding:10px 12px; border-radius:10px; text-decoration:none; color:#111; font-weight:600;
+}
+.dropLink:hover{ background:#f5f5f1; }
+
+/* hover open on desktop */
+@media (hover: hover) and (pointer: fine){
+  .nav .navItem.hasMenu:hover .dropdownMenu{ display:block; }
+}
+
+/* ===== Expanding search ===== */
+.searchWrap{
+  position: relative; width: 38px; transition: width .25s ease;
+  margin-left: 10px;
+}
+.searchWrap.active{ width: 260px; }
+.searchForm{ position:relative; display:flex; align-items:center; }
+.searchInput{
+  position:absolute; inset:0; width:100%;
+  padding: 10px 38px 10px 12px; border-radius: 999px;
+  border: 1px solid rgba(255,255,255, .0);
+  background: rgba(255,255,255,.12);
+  color: #fff; outline: none; opacity: 0; transition: opacity .2s ease, background .2s ease;
+}
+.searchWrap.active .searchInput{ opacity: 1; border-color: rgba(255,255,255,.35); }
+.searchInput::placeholder{ color: rgba(255,255,255,.8); }
+
+.searchBtn{
+  position:absolute; right: 6px; height: 32px; width: 32px;
+  border-radius: 999px; border: 0; cursor:pointer;
+  display:grid; place-items:center; color:#fff; background: transparent;
+}
+.searchBtn:hover{ background: rgba(255,255,255,.15); }
+
+/* On dark header, keep nav link color white */
+.header .nav a, .header .menuTrigger { color: var(--brand-contrast); }
+
+/* ===== Mobile pieces ===== */
+.mobileDrop{
+  list-style:none; cursor:pointer; font-weight:700; color:#fff;
+}
+.mobileDropMenu{ display:grid; gap:15px; padding:8px 0 14px; }
+.mobileSearch{ display:flex; gap:8px; margin-top:8px; }
+.mobileSearch input{
+  flex:1; border-radius:12px; border:1px solid var(--header-border);
+  padding:10px 12px;
+}
+.mobileSearch button{
+  width:42px; border-radius:12px; border:1px solid var(--header-border);
+  display:grid; place-items:center; background:#fff;
+}
+
+
+.pGrid { 
+  display: grid;
+  justify-content: flex-start; /* keep items left-aligned */
+  /* flex-wrap: wrap;           keep in one row */
+           
+
+  gap: 24px;
+  padding-bottom: 10px;        /* space for scrollbar */
+
+  
+ }
+ @media (max-width:720px) {
+  /* .pGrid > * {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+              
+
+} */
+ }
+@media (min-width: 720px){ .pGrid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap:24px; } }
+@media (min-width: 1024px){ .pGrid { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap:24px; } }
+@media (max-width: 720px){ .pGrid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap:24px; } }
+
+
+@media (hover: none) and (pointer: coarse) {
+a:active{
+  background-color: var(--cta);
+}
+  
+}

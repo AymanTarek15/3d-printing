@@ -1,0 +1,94 @@
+/* --- Carousel --- */
+.carousel { position: relative; }
+@media (min-width:1500px) {
+  .carousel{
+    /* margin: 0 100px; */
+    max-width: 80%;
+    margin: auto;
+  }
+}
+.carouselViewport { overflow: hidden; border-radius: 20px; background: transparent; }
+.carouselTrack {
+  display: flex;
+  transition: transform 420ms ease;
+  will-change: transform;
+}
+.carouselSlide {
+  min-width: 100%;
+  padding: 0; /* slides already have spacing via Section */
+}
+
+/* Controls */
+.carouselControls {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  pointer-events: none;
+}
+
+.btn-primary{
+  background-color: var(--brand);
+  /* color: var(--brand); */
+}
+.ctrl {
+  pointer-events: auto;
+  border: 0;
+  background: rgba(0,0,0,0.35);
+  color: #fff;
+  width: 36px; height: 36px;
+  border-radius: 999px;
+  font-size: 20px;
+  line-height: 36px;
+  display: grid; place-items: center;
+  margin: 0 10px;
+}
+
+.h1{
+  color: var(--brand);
+  /* text-shadow: black 1px 1px 1px ; */
+}
+.ctrl:hover { background: rgba(0,0,0,0.5); }
+
+/* Dots (uses your existing .dots/.dot styles; just spacing here) */
+.carousel .dots { margin-top: 24px; }
+
+/* Ensure hero layout inside slides still aligns */
+.heroRow { display:grid; gap: 28px; align-items:center; }
+/* @media (min-width: 992px){ .heroRow { grid-template-columns: 1.3fr 1fr; } }
+.heroImageWrap { display:flex; justify-content:center; }
+.heroImage { width:100%; max-width:520px; height:auto; border-radius:20px; background:#f0f0ea; } */
+
+
+
+
+/* Always keep two columns */
+.heroRow{
+  display: grid;
+  grid-template-columns: 1fr 1fr;   /* <- two columns on all viewports */
+  align-items: center;
+  gap: 16px;
+}
+
+/* Make text and image fit comfortably on small screens */
+.heroRow > div { min-width: 0; }     /* allow wrapping instead of overflow */
+
+.heroImageWrap { display:flex; justify-content:center; }
+.heroImage{
+  width: 100%;
+  max-width: 44vw;                   /* tie image to viewport width */
+  height: auto;
+  border-radius: 20px;
+  background: #f0f0ea;
+}
+
+/* Tighten spacing & scale type on very small phones */
+@media (max-width: 480px){
+  .section { padding: 40px 0; }
+  .container { padding-inline: 12px; }
+  .h1 { font-size: clamp(1.4rem, 6vw, 2rem); line-height: 1.15; }
+  .muted { font-size: 0.95rem; }
+  .heroImage{ max-width: 42vw; }
+  .dots { margin-top: 16px; }
+}

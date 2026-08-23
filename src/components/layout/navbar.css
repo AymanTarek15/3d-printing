@@ -1,0 +1,172 @@
+/* NAV bar keeps items centered vertically */
+.nav { display: flex; align-items: center; gap: 28px; }
+
+.navbar{
+  margin: 0;
+  display: flex;
+  justify-content: space-between;
+}
+ul{
+  padding-left: 30px !important;
+}
+li{
+  list-style: none;
+
+}
+.header{
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+.mobileNav{
+  padding: 50px 0;
+}
+
+.brand{
+  margin-left: 20px;
+}
+
+/* Search: inline-flex so it aligns with nav items (no baseline drop) */
+.searchWrap{
+  display: inline-flex;            /* <— key */
+  align-items: center;             /* center vertically */
+  height: 36px;                    /* consistent control height */
+  position: relative;
+  width: 38px;
+  transition: width .25s ease;
+  margin-left: 10px;
+  vertical-align: middle;          /* guards against baseline quirks */
+}
+.searchWrap.active{ width: 260px; }
+
+/* The form fills the wrapper height */
+.searchForm{
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 100%;                    /* <— match 36px */
+  width: 100%;
+}
+
+/* Input is absolutely positioned but takes wrapper height */
+.searchInput{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;                    /* <— keep height stable */
+  box-sizing: border-box;          /* include padding/border in 36px */
+  padding: 8px 38px 8px 12px;      /* fits inside 36px */
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.0);
+  background: rgba(255,255,255,.12);
+  color: #fff;
+  outline: none;
+  opacity: 0;
+  transition: opacity .2s ease, background .2s ease, border-color .2s ease;
+}
+.searchWrap.active .searchInput{
+  opacity: 1;
+  border-color: rgba(255,255,255,.35);
+}
+
+/* Icon stays vertically centered regardless of height/border */
+.searchBtn{
+  position: absolute;
+  right: 6px;
+  top: 50%;                        /* <— center */
+  transform: translateY(-50%);     /* <— center */
+  height: 28px;
+  width: 28px;
+  border-radius: 999px;
+  border: 0;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  background: transparent;
+}
+.searchBtn:hover{ background: rgba(255,255,255,.15); }
+
+a:hover{
+  color: var(--cta) !important;
+}
+.dropdownMenu{
+  background-color: var(--brand);
+}
+
+.dropdownMenu a:hover{
+  background-color: var(--brand);
+  color: var(--cta);
+}
+
+#nav-cart{
+  
+  float: right;
+  margin-left: 10px;
+}
+
+#nav-cart-items{
+  position: absolute;
+  right: 45px;
+  top:-10px;
+  border-radius: 50%;
+  background-color: white;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  color: red;
+}
+
+/* Show Hatem */
+
+.dropLink:hover{
+  background-color: var(--cta) !important;
+  color: black !important;
+}
+
+#events{
+  color: var(--cta);
+}
+#events:hover{
+  color: var(--cta-hover);
+}
+
+.cart-container{
+  display: flex;
+  justify-content: center;
+  align-items: center !important;
+}
+
+
+
+
+@media (max-width:767px) {
+  .nav{
+    display: none;
+  }
+  .cart-container{
+    display: flex;
+    align-items: center;
+  }
+  
+  cart-container{
+    position: relative !important;
+    right: 100px !important;
+  }
+  .header{
+    padding: 0;
+  }
+  .searchInput{
+    opacity: 1;
+    border-color: rgba(255,255,255,.35);
+    height: 30px;
+    /* width: 30%; */
+  }
+  .bigscreen-search{
+    display: none;
+  }
+
+  #nav-cart-items{
+    right: 15px;
+  }
+}

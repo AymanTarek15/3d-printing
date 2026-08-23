@@ -1,0 +1,83 @@
+/* Containers */
+.cartLine {
+  display: grid;
+  grid-template-columns: 100px 1fr auto;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  margin-top: 12px;
+}
+
+/* Image */
+.cartLineImg {
+  border-radius: 12px;
+  object-fit: cover;
+  background: #f3f3f3;
+  width: 100px;
+  height: 100px;
+}
+
+/* Info */
+.cartLineInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.cartTitle { font-weight: 700; }
+.cartPrice { color: #555; }
+.cartMeta { font-size: .9rem; }
+
+/* Qty row */
+.cartQtyRow {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;          /* allow wrap on small screens */
+}
+
+.cartLineTotal { font-weight: 700; }
+
+/* Summary card */
+.cartSummary { padding: 16px; margin-top: 16px; }
+.cartGrand {
+  font-size: 18px;
+  font-weight: 800;
+  margin-top: 8px;
+}
+.cartActions {
+  margin-top: 12px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* --------- Responsive --------- */
+
+/* Phones: stack rows, make image wide, move total to its own row */
+@media (max-width: 600px) {
+  .cartLine {
+    grid-template-columns: 80px 1fr;  /* image + info */
+    grid-template-areas:
+      "img info"
+      "total total";
+    align-items: start;
+  }
+  .cartLineImg { width: 80px; height: 80px; }
+  .cartLineInfo { gap: 8px; }
+  .cartLineTotal {
+    grid-area: total;
+    margin-top: 6px;
+    text-align: right;
+  }
+}
+
+/* Very small phones */
+@media (max-width: 380px) {
+  .cartLine {
+    grid-template-columns: 64px 1fr;
+    gap: 12px;
+  }
+  .cartLineImg { width: 64px; height: 64px; }
+  .cartQtyRow .btn { padding: 6px 10px; }
+}

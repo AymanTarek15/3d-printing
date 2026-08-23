@@ -1,0 +1,24 @@
+.pCard { display:flex; flex-direction:column; overflow:hidden; transition: transform .18s ease, box-shadow .18s ease; border-color: #111; border: 2px var(--brand) solid; }
+.pCard:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,.06); }
+
+.pThumb { position:relative; background:#f2f2ee; }
+.pImg { width:100%; height:auto; display:block; object-fit:cover; border-top-left-radius:16px; border-top-right-radius:16px; }
+.pBadge {
+  position:absolute; left:12px; top:12px; background:#0f5e3a; color:#fff;
+  font-size:12px; font-weight:700; padding:6px 10px; border-radius:999px; letter-spacing:.2px;
+}
+
+.pBody { padding:16px; display:flex; flex-direction:column; gap:10px; }
+.pTitle { font-weight:700; color:var(--text); text-decoration:none; text-align: center; }
+.pTitle:hover { text-decoration:underline; }
+
+.pMeta { display:flex; align-items:center; justify-content:center; gap:10px; }
+@media (max-width:720px) {
+  .pMeta{
+    flex-direction: column;
+  }
+}
+.pPrice { font-weight:800; color:var(--text); }
+
+.pActions { display:flex; gap:10px; margin-top:6px; }
+.pActions .btn { flex: 1 1 auto; text-align:center; }

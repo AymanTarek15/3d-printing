@@ -1,0 +1,53 @@
+.coGrid { display:grid; gap:24px; align-items:start; }
+@media (min-width: 992px){ .coGrid { grid-template-columns: 1.2fr .8fr; } }
+
+.coForm, .coSummary { padding: 20px; }
+.coRow { display:grid; gap:8px; margin-bottom:12px; }
+.coTwo { display:grid; gap:12px; grid-template-columns: 1fr 1fr; }
+.coRow input, .coRow textarea {
+  border:1px solid var(--border); border-radius:12px; padding:10px 12px; font: inherit;
+}
+.coRadio { display:grid; gap:8px; }
+
+.coItems { margin-top: 12px; display:grid; gap:8px; }
+.coLine { display:grid; grid-template-columns: 1fr auto auto; gap:12px; align-items:center; }
+.coTitle { font-weight:600; }
+.coQty { color: var(--muted); }
+.coLinePrice { font-weight:700; }
+
+.coTotals { margin-top: 16px; display:grid; gap:8px; }
+.coTotals > div { display:flex; justify-content:space-between; }
+.coGrand { font-size: 1.1rem; font-weight: 800; border-top:1px solid var(--border); padding-top:8px; margin-top:8px; }
+
+@media (min-width:720px) {
+  .section{
+    padding: 2%;
+  }
+}
+
+
+/* Stack the two half inputs on small screens */
+@media (max-width: 640px) {
+  .coTwo { grid-template-columns: 1fr; }
+}
+
+/* Make each order line wrap nicely on phones */
+@media (max-width: 480px) {
+  .coLine {
+    grid-template-columns: 1fr auto; /* title + price */
+    row-gap: 6px;
+  }
+  .coQty {
+    grid-column: 1 / -1;             /* move qty to its own row */
+    justify-self: start;
+  }
+  .coLinePrice {
+    justify-self: end;
+  }
+}
+
+/* Small padding for mobile sections */
+@media (max-width: 720px) {
+  .section { padding: 16px; }
+  .coForm, .coSummary { padding: 16px; }
+}

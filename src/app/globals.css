@@ -1,4 +1,4 @@
-:root {
+/* :root {
   --background: #ffffff;
   --foreground: #171717;
 }
@@ -39,4 +39,57 @@ a {
   html {
     color-scheme: dark;
   }
+} */
+
+/* New code */
+
+/* @import url('../styles/variables.css');
+@import url('../styles/layout.css');
+@import url('../styles/sections.css'); */
+
+:root {
+  --font-ah-naskh-hadith: "Ah Naskh Hadith", serif;
+  --font-blabeloo: "Blabeloo MagdySoliman", cursive;
+  --font-super-creamy: "Super Creamy", cursive;
+  --font-goudy-old-style: "Goudy Old Style", serif;
 }
+
+html, body { height: 100%; }
+body {
+color: var(--text);
+background: var(--bg);
+-webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;
+margin: 0;
+font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+}
+
+
+.container { max-width: 100%; margin: 0 auto; padding: 0 16px; }
+@media (min-width:1500px) {
+  .container{
+    /* max-width: 90%; */
+  }
+}
+.section { padding: 64px 0; }
+.h1 { font-size: clamp(2rem, 3.5vw, 3.25rem); font-weight: 800; letter-spacing: -0.02em; color: var(--brand); }
+.h2 { font-size: clamp(1.5rem, 2.5vw, 2.25rem); font-weight: 700; color: var(--brand); }
+.muted { color: var(--muted); }
+.btn { display: inline-flex; align-items: center; gap: 8px; border-radius: 14px; padding: 12px 18px; font-weight: 600; border: 1px solid var(--border); background: var(--btn-bg); color: var(--btn-fg); cursor: pointer; transition: 160ms ease; text-decoration: none; }
+.btn:hover { filter: brightness(0.96); color: var(--cta);}
+.btn-primary { background: var(--brand); color: #fff; border-color: #111; }
+.btn-ghost { background: transparent; color: #111; border-color: #111;  }
+.card { border: 1px solid var(--border); border-radius: 16px; box-shadow: 0 1px 2px rgba(0,0,0,.06); background: #fff; }
+.aspect-video { position: relative; width: 100%; padding-top: 56.25%; background: #f2f2f2; border-radius: 16px; }
+.aspect-video > * { position: absolute; inset: 0; }
+
+
+/* small utilities */
+.grid { display: grid; gap: 24px; }
+.grid-2 { grid-template-columns: repeat(1, minmax(0,1fr)); }
+@media (min-width: 768px){ .grid-2 { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+.grid-3 { grid-template-columns: repeat(1, minmax(0,1fr)); }
+@media (min-width: 900px){ .grid-3 { grid-template-columns: repeat(3, minmax(0,1fr)); } }
+
+/* sections.css */
+.pGrid { display: grid; gap: 24px; }

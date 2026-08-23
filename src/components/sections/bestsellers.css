@@ -1,0 +1,59 @@
+.h2{
+  text-align: center;
+  color: var(--brand);
+}
+
+#best{
+  background-color: var(--brand-background);
+  border-radius: 1%;
+  box-shadow: .18s ease;
+  border-color: #111;
+}
+
+/* --- Best Sellers --- */
+.bestSellerspGrid { 
+  display: flex;
+  justify-content: flex-start; /* keep items left-aligned */
+  flex-wrap: nowrap;           /* keep in one row */
+  overflow-x: auto !important;            /* scroll horizontally */
+  overflow-y: hidden;
+  gap: 24px;
+  padding-bottom: 10px;        /* space for scrollbar */
+  scroll-behavior: smooth;     /* smooth scrolling */
+  -webkit-overflow-scrolling: touch; /* better on iOS */
+ }
+ @media (max-width:720px) {
+  .bestSellerspGrid > * {
+  flex: 0 0 auto;             /* no shrinking */
+  width: 240px;               /* fixed card width so we overflow */
+  scroll-snap-align: start;
+}
+ }
+@media (min-width: 720px){ .bestSellerspGrid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap:24px; } }
+@media (min-width: 1024px){ .bestSellerspGrid { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap:24px; } }
+
+
+
+.view-all-btn{
+  text-align: center;
+  padding-left: 50px;
+  padding-right: 50px;
+  /* width: 30%; */
+}
+
+.view-all-container{
+  margin-top: 60px;
+  display: flex;
+  /* width: 50%; */
+  justify-content: center;
+}
+
+.wishlistBtn:hover .fa-heart {
+  transform: scale(1.1);
+}
+
+@media (min-width:720px) {
+  #best{
+    padding: 2%;
+  }
+}

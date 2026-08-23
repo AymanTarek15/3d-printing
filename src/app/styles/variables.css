@@ -1,0 +1,14 @@
+:root{
+  --bg: #f7f7f5;          /* very light warm gray background like screenshot */
+  --surface: #ffffff;
+  --text: #111111;        /* nearly black headlines */
+  --muted: #6b7280;       /* body copy */
+  --border: #e6e6e0;
+
+  --brand: #0f5e3a;       /* deep green header */
+  --brand-background:rgba(15, 94, 58,0.1);
+  --brand-contrast: #ffffff;
+
+  --cta: #f1c40f;         /* yellow buttons */
+  --cta-hover: #d9ae0d;
+}

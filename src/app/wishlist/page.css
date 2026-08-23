@@ -171,3 +171,33 @@ a.secondary {
   #home-page-container{
     padding: 50% !important;
   }
+
+
+
+  .pGrid { 
+  display: grid;
+  justify-content: flex-start; /* keep items left-aligned */
+  flex-wrap: wrap;           /* keep in one row */
+
+
+  gap: 24px;
+  padding-bottom: 10px;        /* space for scrollbar */
+
+
+ }
+
+ 
+
+
+
+ 
+@media (min-width: 720px){ .pGrid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap:24px; } }
+@media (min-width: 1024px){ .pGrid { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap:24px; } }
+@media (max-width: 720px){ .pGrid { display: grid; grid-template-columns: 1fr 1fr; gap:12px; width: 360px; } .hidden-in-small-btn{
+    display: none !important;
+    
+  }
+.pGrid{
+  padding: 2%;
+}
+}
