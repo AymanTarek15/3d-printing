@@ -1,9 +1,9 @@
 "use client";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import "../dashboard.css";
 
-export default function DashboardLogin() {
+function LoginForm() {
   const router = useRouter();
   const params = useSearchParams();
   const next = params.get("next") || "/dashboard";
@@ -61,5 +61,19 @@ export default function DashboardLogin() {
         {error && <p className="dashError">{error}</p>}
       </form>
     </div>
+  );
+}
+
+export default function DashboardLogin() {
+  return (
+    <Suspense
+      fallback={
+        <div className="dashLoginWrap">
+          <div className="dashLoginCard">Loading…</div>
+        </div>
+      }
+    >
+      <LoginForm />
+    </Suspense>
   );
 }
