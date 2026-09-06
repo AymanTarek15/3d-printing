@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-const API_BASE = process.env.DJANGO_API_BASE; // server-only
+const API_BASE = process.env.DJANGO_API_BASE || process.env.NEXT_PUBLIC_API_BASE; // prefer server-only, fall back to public base
 
 const COOKIE = "admin_token";
 const MAX_AGE = 60 * 60 * 8; // 8 hours

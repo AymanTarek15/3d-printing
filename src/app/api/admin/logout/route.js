@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 
-const API_BASE = process.env.DJANGO_API_BASE;
+const API_BASE = process.env.DJANGO_API_BASE || process.env.NEXT_PUBLIC_API_BASE;
 const COOKIE = "admin_token";
 
 export async function POST() {

@@ -4,7 +4,7 @@ import Link from "next/link";
 import LogoutButton from "./LogoutButton";
 import "../dashboard.css";
 
-const API_BASE = process.env.DJANGO_API_BASE;
+const API_BASE = process.env.DJANGO_API_BASE || process.env.NEXT_PUBLIC_API_BASE;
 
 // Real gate: verify the token maps to a staff user server-side.
 // (Middleware only checks cookie presence at the edge.)
