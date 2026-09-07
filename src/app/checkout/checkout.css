@@ -51,3 +51,13 @@
   .section { padding: 16px; }
   .coForm, .coSummary { padding: 16px; }
 }
+
+/* ===== Redesign polish ===== */
+.coForm, .coSummary {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--r-lg); box-shadow: var(--shadow-sm);
+}
+.coRow input, .coRow textarea { border-radius: var(--r-md); transition: border-color var(--t-fast); }
+.coRow input:focus, .coRow textarea:focus { border-color: var(--brand); }
+.coLinePrice { color: var(--brand); }
+.coGrand { color: var(--brand); font-family: var(--font-display), sans-serif; }

@@ -160,3 +160,40 @@
   .callout{ background: oklch(25% 0.02 250); color: oklch(92% 0.02 250); border-color: oklch(35% 0.02 250); }
   .callout--warning{ background: oklch(28% 0.08 85); color: oklch(96% 0.02 85); border-color: oklch(40% 0.12 85); }
 }
+
+/* ===================== Redesign polish ===================== */
+.pdWrap { padding: 32px 0; }
+
+/* Gallery main image → responsive card */
+.pdThumbMain {
+  height: auto; aspect-ratio: 4 / 3;
+  border-radius: var(--r-lg); border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm); background: var(--surface-2);
+}
+.pdImg { border-radius: var(--r-lg); }
+.pdWish {
+  width: 40px; height: 40px; border-radius: var(--r-pill);
+  background: rgba(255,255,255,.88); backdrop-filter: blur(4px);
+  display: grid; place-items: center; box-shadow: var(--shadow-sm); filter: none;
+}
+.pdThumb.is-active { border-color: var(--brand); }
+.pdSecondaryItem.is-active .pdSecondaryImg { outline-color: var(--brand); }
+
+/* Info panel → card */
+.pdInfo {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--r-lg); box-shadow: var(--shadow-sm); padding: 28px;
+}
+.pdInfo .h2 { color: var(--text); }
+.pdPrice { font-family: var(--font-display), system-ui, sans-serif; color: var(--brand); font-size: 2rem; }
+
+/* Buy row */
+.pdControls { gap: 12px; align-items: stretch; }
+.qty { border-radius: var(--r-pill); }
+.qty .btn { padding: 8px 14px; border-radius: var(--r-pill); background: var(--surface-2); }
+.pdControls .btn-primary { flex: 1; }
+
+@media (max-width: 560px) {
+  .pdInfo { padding: 20px; }
+  .pdControls { flex-direction: column; }
+}

@@ -1,0 +1,44 @@
+/* ===== Shared section title eyebrow ===== */
+.eyebrow {
+  display: inline-block;
+  font-family: var(--font-display), sans-serif;
+  font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--brand); background: var(--brand-background);
+  padding: 5px 12px; border-radius: var(--r-pill); margin-bottom: 14px;
+}
+
+/* ===== Why FAT7 ===== */
+.why { background: var(--surface); }
+.whyGrid {
+  display: grid; gap: 20px;
+  grid-template-columns: repeat(1, 1fr);
+}
+@media (min-width: 640px)  { .whyGrid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .whyGrid { grid-template-columns: repeat(4, 1fr); } }
+
+.whyCard {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--r-lg); padding: 26px 22px; text-align: center;
+  transition: transform var(--t), box-shadow var(--t), border-color var(--t);
+}
+.whyCard:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); border-color: var(--brand-100); }
+
+.whyIcon {
+  display: inline-grid; place-items: center; width: 56px; height: 56px;
+  border-radius: var(--r-md); margin-bottom: 16px;
+  background: var(--brand-background); color: var(--brand);
+}
+.whyTitle { font-family: var(--font-display), sans-serif; font-weight: 600; font-size: 1.1rem; margin: 0 0 8px; color: var(--text); }
+.whyText { font-size: 0.9rem; line-height: 1.5; margin: 0; }
+
+/* ===== CTA band ===== */
+.cta { background: var(--bg); }
+.ctaInner {
+  position: relative; overflow: hidden;
+  background: linear-gradient(120deg, var(--brand) 0%, var(--brand-700) 100%);
+  color: #fff; border: 0; border-radius: var(--r-xl);
+  padding: 56px 32px; text-align: center; box-shadow: var(--shadow-lg);
+}
+.ctaInner .h2 { color: #fff; margin: 0; }
+.ctaInner .muted { color: rgba(255,255,255,.85); }
+.ctaInner .btn-cta { margin-top: 8px; }

@@ -10,6 +10,7 @@ import CTA from "@/components/sections/CTA"
 import HeroCarousel from "@/components/sections/HeroCarousel"
 import BestSellers from "@/components/sections/BestSellers"
 import Categories from "@/components/sections/Categories"
+import HomeHighlights from "@/components/sections/HomeHighlights"
 import { getBestSelling, getCategories } from "./lib/api"
 
 import './page.module.css'
@@ -40,10 +41,11 @@ return (
 <HeroCarousel />
 <BestSellers products={bestSellingSection} />
 <Categories categories={categories} />
+<HomeHighlights />
+<CTA />
 {/* <Testimonials /> */}
 {/* <Pricing /> */}
 {/* <FAQ /> */}
-{/* <CTA /> */}
 </>
 )
 }

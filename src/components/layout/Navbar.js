@@ -180,7 +180,7 @@ export default function Navbar({categories, season}) {
             style={{ color: "#ffffff" }}
             />
             </Link>
-          <p id="nav-cart-items">{count}</p>
+          {count > 0 && <p id="nav-cart-items">{count}</p>}
           <Link id="nav-cart" href={"/cart"}>
             <FontAwesomeIcon
               icon={faCartShopping}

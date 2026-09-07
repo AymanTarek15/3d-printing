@@ -81,3 +81,12 @@
   .cartLineImg { width: 64px; height: 64px; }
   .cartQtyRow .btn { padding: 6px 10px; }
 }
+
+/* ===== Redesign polish ===== */
+.cartTitle { font-family: var(--font-display), system-ui, sans-serif; font-size: 1.05rem; color: var(--text); }
+.cartPrice { color: var(--muted); }
+.cartLineImg { border: 1px solid var(--border); }
+.cartLineTotal { color: var(--brand); font-family: var(--font-display), sans-serif; }
+.cartSummary { border-radius: var(--r-lg); }
+.cartGrand { color: var(--brand); font-family: var(--font-display), sans-serif; }
+.cartQtyRow .btn { border-radius: var(--r-pill); background: var(--surface-2); padding: 6px 14px; }

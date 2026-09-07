@@ -1,15 +1,21 @@
 .header {
   position: sticky; top: 0; z-index: 50;
   background: var(--brand);
-  border-bottom: 1px solid rgba(0,0,0,.06);
+  box-shadow: var(--shadow-md);
 }
-.navbar { height: 68px; display:flex; align-items:center; justify-content:space-between; }
+.navbar { height: 64px; display:flex; align-items:center; justify-content:space-between; }
 .brand { display:flex; align-items:center; gap:12px; text-decoration:none; color: var(--brand-contrast); }
-.brand img { height: 36px; width:auto; }
+.brand img { height: 34px; width:auto; }
 
-.nav { display:none; gap:28px; align-items:center; }
-.nav a { color: var(--brand-contrast); text-decoration:none; font-weight:600; }
-.nav a:hover { opacity:.85; }
+.nav { display:none; gap:30px; align-items:center; }
+/* Animated underline on desktop nav links */
+.nav a { position: relative; color: var(--brand-contrast); text-decoration:none; font-weight:600; padding: 4px 0; }
+.nav a::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: -4px; height: 2px;
+  background: var(--cta); border-radius: 2px;
+  transform: scaleX(0); transform-origin: left; transition: transform var(--t);
+}
+.nav a:hover::after { transform: scaleX(1); }
 
 .menuBtn { background:transparent; border:0; font-size:22px; color:var(--brand-contrast); cursor:pointer; }
 @media (min-width: 768px){ .nav{display:flex} .menuBtn{display:none} }
