@@ -61,10 +61,14 @@ export default function Footer() {
         <div className="fpPayments">
           <span>We accept the following payment methods:</span>
           <div className="fpPayIcons">
-            <Image src="/payments/instapay.png" alt="Visa" width={80} height={40} />
-            <Image src="/payments/vfcash.png" alt="Mastercard" width={80} height={40} />
-            {/* <Image src="/payments/amex.svg" alt="AmEx" width={42} height={28} />
-            <Image src="/payments/paypal.svg" alt="PayPal" width={42} height={28} /> */}
+            <span className="payChip payChip--instapay" aria-label="InstaPay">
+              <span className="payDot payDot--instapay" aria-hidden="true" />
+              InstaPay
+            </span>
+            <span className="payChip payChip--vodafone" aria-label="Vodafone Cash">
+              <span className="payDot payDot--vodafone" aria-hidden="true" />
+              Vodafone&nbsp;Cash
+            </span>
           </div>
         </div>
 
