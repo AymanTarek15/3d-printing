@@ -54,6 +54,10 @@ a {
   --font-goudy-old-style: "Goudy Old Style", serif;
 }
 
+/* Border-box everywhere so width:100% + padding never overflows
+   (this was the cause of the navbar/containers being 32px too wide on mobile). */
+*, *::before, *::after { box-sizing: border-box; }
+
 html, body { height: 100%; }
 body {
 color: var(--text);
@@ -61,6 +65,7 @@ background: var(--bg);
 -webkit-font-smoothing: antialiased;
 -moz-osx-font-smoothing: grayscale;
 margin: 0;
+overflow-x: hidden;               /* belt-and-suspenders against horizontal scroll */
 font-family: var(--font-body), system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
 line-height: 1.6;
 }

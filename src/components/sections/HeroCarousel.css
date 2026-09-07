@@ -83,7 +83,8 @@
 }
 @media (max-width: 480px) {
   .section { padding: 40px 0; }
-  .container { padding-inline: 16px; }
   .heroSub { font-size: 1rem; }
   .heroArtSvg { max-width: 240px; }
+  .heroTitle { font-size: clamp(1.9rem, 8vw, 2.3rem); }
+  .heroTitle .heroAccent { -webkit-text-stroke: 0.5px var(--brand); }
 }
