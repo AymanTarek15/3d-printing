@@ -8,6 +8,8 @@ li { list-style: none; }
 
 /* ===== Desktop nav ===== */
 .nav { display: flex; align-items: center; gap: 30px; }
+/* Empty spacer div in the markup — remove it from the flex row so nav centers */
+.nav-small-size { display: none; }
 
 .navItem { position: relative; }
 .menuTrigger {
@@ -75,6 +77,12 @@ li { list-style: none; }
 /* Keep nav link color white on the dark header (underline handled in layout.css) */
 .header .nav a, .header .menuTrigger { color: var(--brand-contrast); }
 .menuTrigger:hover { color: var(--cta); }
+
+/* ...but dropdown links sit on a white card, so they must stay dark */
+.header .nav .dropdownMenu a { color: var(--text); }
+.header .nav .dropdownMenu a:hover { color: var(--brand); }
+/* the header-wide underline shouldn't show inside the dropdown */
+.header .nav .dropdownMenu a::after { display: none; }
 
 /* ===== Mobile ===== */
 .menuBtn { background: transparent; border: 0; font-size: 22px; color: var(--brand-contrast); cursor: pointer; }
