@@ -67,9 +67,7 @@
 }
 .payChip--instapay { color: #4a2a7a; }
 .payChip--vodafone { color: #e60000; }
-.payDot { width: 12px; height: 12px; border-radius: var(--r-pill); flex: 0 0 auto; }
-.payDot--instapay { background: #ef6a3d; box-shadow: 0 0 0 3px rgba(74, 42, 122, 0.18); }
-.payDot--vodafone { background: #e60000; box-shadow: 0 0 0 3px rgba(230, 0, 0, 0.18); }
+.payGlyph { flex: 0 0 auto; display: block; }
 
 /* bottom */
 .fpBottom {

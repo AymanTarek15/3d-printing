@@ -62,11 +62,20 @@ export default function Footer() {
           <span>We accept the following payment methods:</span>
           <div className="fpPayIcons">
             <span className="payChip payChip--instapay" aria-label="InstaPay">
-              <span className="payDot payDot--instapay" aria-hidden="true" />
+              <svg className="payGlyph" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+                <rect x="2" y="2" width="20" height="20" rx="6" fill="#4a2a7a" />
+                <path d="M12.6 4.5 L7 13.2 h3.4 L9.6 19.5 L16.5 10 h-3.6 z" fill="#ef6a3d" />
+              </svg>
               InstaPay
             </span>
             <span className="payChip payChip--vodafone" aria-label="Vodafone Cash">
-              <span className="payDot payDot--vodafone" aria-hidden="true" />
+              <svg className="payGlyph" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+                <rect x="2" y="2" width="20" height="20" rx="6" fill="#e60000" />
+                <rect x="6" y="5.5" width="8.5" height="13" rx="1.8" fill="#fff" />
+                <rect x="8.6" y="16.4" width="3.3" height="0.9" rx="0.45" fill="#e60000" />
+                <circle cx="16" cy="9" r="3.6" fill="#fff" stroke="#e60000" strokeWidth="1.1" />
+                <circle cx="16" cy="9" r="1.5" fill="#e60000" />
+              </svg>
               Vodafone&nbsp;Cash
             </span>
           </div>
