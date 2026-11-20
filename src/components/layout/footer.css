@@ -1,79 +1,84 @@
-/* ===== FOOTER ===== */
-.fp {
-  background: linear-gradient(180deg, var(--brand) 0%, var(--brand-700) 100%);
-  color: #fff;
-  margin-top: 64px;
-}
-.fp .container { padding-top: 48px; padding-bottom: 32px; }
+/* ==========================================================================
+   Footer — deep green with the gold geometric corners.
+   ========================================================================== */
 
-/* top grid: brand | divider | columns */
-.fpTop { display: grid; gap: 32px; align-items: start; }
-@media (min-width: 1024px) {
-  .fpTop { grid-template-columns: 1fr 1px 2fr; gap: 48px; }
+.ft {
+  position: relative; overflow: hidden;
+  background: var(--brand-800); color: #fff;
 }
 
-/* brand column */
-.fpBrand { display: flex; flex-direction: column; align-items: flex-start; gap: 18px; }
-.fpLogoRow { display: flex; align-items: center; gap: 16px; }
-.fpBrand img { filter: brightness(0) invert(1); opacity: 0.95; }
-
-.fpSocials { display: flex; gap: 12px; }
-.fpSocials a {
-  display: grid; place-items: center; width: 38px; height: 38px;
-  color: #fff; border-radius: var(--r-pill);
-  background: rgba(255,255,255,.1); transition: background var(--t-fast), transform var(--t-fast);
+.ft::before, .ft::after {
+  content: ""; position: absolute; top: 0; width: 230px; height: 170px;
+  pointer-events: none;
+  background-image:
+    linear-gradient(135deg, transparent 46%, rgba(252,152,0,0.34) 46%, rgba(252,152,0,0.34) 52%, transparent 52%),
+    linear-gradient(45deg, transparent 46%, rgba(252,152,0,0.18) 46%, rgba(252,152,0,0.18) 52%, transparent 52%);
+  background-size: 34px 34px;
 }
-.fpSocials a:hover { background: var(--cta); color: #1c1600; transform: translateY(-2px); }
-.fpSocials svg { width: 18px; height: 18px; fill: currentColor; }
-
-/* vertical separator */
-.fpVsep { display: none; }
-@media (min-width: 1024px) {
-  .fpVsep { display: block; width: 1px; height: 100%; background: rgba(255,255,255,.18); justify-self: center; }
+.ft::before {
+  left: 0;
+  -webkit-mask-image: linear-gradient(135deg, #000, transparent 70%);
+          mask-image: linear-gradient(135deg, #000, transparent 70%);
+}
+.ft::after {
+  right: 0;
+  -webkit-mask-image: linear-gradient(225deg, #000, transparent 70%);
+          mask-image: linear-gradient(225deg, #000, transparent 70%);
 }
 
-/* link columns */
-.fpCols { display: grid; gap: 28px; grid-template-columns: repeat(3, minmax(0,1fr)); }
-@media (max-width: 520px) { .fpCols { grid-template-columns: repeat(2, 1fr); } }
+.ftInner { position: relative; z-index: 1; padding: 48px 28px 22px; }
+@media (max-width: 600px) { .ftInner { padding: 36px 16px 20px; } }
 
-.fpHead {
-  color: #fff; font-family: var(--font-display), sans-serif; font-weight: 600;
-  font-size: 0.95rem; letter-spacing: 0.02em; margin-bottom: 14px;
-  position: relative; padding-bottom: 10px;
-}
-.fpHead::after {
-  content: ""; position: absolute; left: 0; bottom: 0; width: 28px; height: 2px;
-  background: var(--cta); border-radius: 2px;
-}
-.fpLink {
-  display: block; color: rgba(255,255,255,.82); text-decoration: none;
-  font-weight: 500; font-size: 0.9rem; margin: 9px 0;
-  transition: color var(--t-fast), transform var(--t-fast);
-}
-.fpLink:hover { color: var(--cta); transform: translateX(3px); }
+.ftTop { display: grid; gap: 30px; grid-template-columns: 1fr; }
+@media (min-width: 700px) { .ftTop { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 1000px) { .ftTop { grid-template-columns: 1.3fr 1fr 1fr 1fr 1.1fr; gap: 28px; } }
 
-/* dividers & payments */
-.fpDivider { height: 1px; background: rgba(255,255,255,.16); margin: 28px 0; }
-.fpPayments {
+.ftBrand { display: flex; flex-direction: column; gap: 16px; }
+.ftLogo { height: 86px; width: auto; object-fit: contain; }
+
+.ftCol { display: flex; flex-direction: column; gap: 9px; }
+.ftHead { font-size: 0.88rem; font-weight: 700; color: #fff; margin-bottom: 4px; }
+.ftLink {
+  color: rgba(255, 255, 255, 0.72); text-decoration: none;
+  font-size: 0.84rem; transition: color var(--t-fast);
+}
+.ftLink:hover { color: var(--gold); }
+.ftMore { margin-top: 4px; font-size: 0.84rem; }
+
+.ftContact {
+  display: flex; align-items: center; gap: 9px;
+  color: rgba(255, 255, 255, 0.72); text-decoration: none;
+  font-size: 0.84rem; transition: color var(--t-fast);
+}
+.ftContact:hover { color: var(--gold); }
+.ftContact svg { width: 17px; height: 17px; flex: none; fill: var(--gold); }
+
+.ftSocials { display: flex; gap: 14px; flex-wrap: wrap; }
+.ftSocials a {
+  width: 26px; height: 26px; display: grid; place-items: center;
+  color: #fff; transition: color var(--t-fast);
+}
+.ftSocials a:hover { color: var(--gold); }
+.ftSocials svg { width: 19px; height: 19px; fill: currentColor; }
+
+.ftDivider { height: 1px; background: rgba(255, 255, 255, 0.13); margin: 30px 0 18px; }
+
+.ftBottom {
   display: flex; align-items: center; justify-content: space-between;
-  gap: 16px; flex-wrap: wrap; color: rgba(255,255,255,.85); font-size: 0.9rem;
+  gap: 16px; flex-wrap: wrap;
 }
-.fpPayIcons { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
-.payChip {
-  display: inline-flex; align-items: center; gap: 8px;
-  background: #fff; border-radius: var(--r-pill);
-  padding: 8px 14px; font-weight: 700; font-size: 0.85rem;
-  box-shadow: var(--shadow-sm); white-space: nowrap;
-}
-.payChip--instapay { color: #4a2a7a; }
-.payChip--vodafone { color: #e60000; }
-.payGlyph { flex: 0 0 auto; display: block; }
+.ftCopy { margin: 0; font-size: 0.78rem; color: rgba(255, 255, 255, 0.55); }
 
-/* bottom */
-.fpBottom {
-  display: flex; align-items: center; justify-content: center; gap: 12px;
-  color: rgba(255,255,255,.7); font-size: 0.85rem; text-align: center;
+.ftLegal {
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  font-size: 0.78rem;
 }
-.fpBottomLinks { display: flex; gap: 14px; }
-.fpBottomLinks a { color: rgba(255,255,255,.7); text-decoration: none; }
-.fpBottomLinks a:hover { color: #fff; }
+.ftLegal a { color: rgba(255, 255, 255, 0.62); text-decoration: none; }
+.ftLegal a:hover { color: var(--gold); }
+.ftLegal i { color: rgba(255, 255, 255, 0.28); font-style: normal; margin-right: 8px; }
+
+.ftMade {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-size: 0.78rem; color: rgba(255, 255, 255, 0.62);
+}
+.ftFlag { width: 19px; height: 13px; border-radius: 2px; }

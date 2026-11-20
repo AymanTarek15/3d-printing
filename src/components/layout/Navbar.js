@@ -1,319 +1,156 @@
 "use client";
+
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
-import { useRouter } from "next/navigation";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCoffee,
-  faHeart,
-  faMagnifyingGlass,
-  faCartShopping,
-} from "@fortawesome/free-solid-svg-icons"; // Import specific icons
+import { useEffect, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
 import { selectCount } from "@/store/cartSlice";
+import { site } from "@/app/lib/site";
 import "./navbar.css";
 
-
-export default function Navbar({categories, season}) {
+export default function Navbar() {
   const [openMobile, setOpenMobile] = useState(false);
-  const [openMenu, setOpenMenu] = useState(false); // dropdown
-  const [searchOpen, setSearchOpen] = useState(false); // expanding search
   const [q, setQ] = useState("");
-  const dropdownRef = useRef(null);
-  const searchRef = useRef(null);
   const router = useRouter();
+  const pathname = usePathname();
 
-  
- const count = useSelector(selectCount);
-
-
-
+  const count = useSelector(selectCount);
 
   useEffect(() => {
-    function onDoc(e) {
-      // if (dropdownRef.current && !dropdownRef.current.contains(e.target)) setOpenMenu(false);
-      if (searchRef.current && !searchRef.current.contains(e.target))
-        setSearchOpen(false);
-    }
     function onKey(e) {
-      if (e.key === "Escape") {
-        setSearchOpen(false);
-      }
+      if (e.key === "Escape") setOpenMobile(false);
     }
     document.addEventListener("keydown", onKey);
-    document.addEventListener("mousedown", onDoc);
-    return () => {
-      document.removeEventListener("mousedown", onDoc);
-      document.removeEventListener("keydown", onKey);
-    };
+    return () => document.removeEventListener("keydown", onKey);
   }, []);
+
+  // Close the drawer whenever the route changes.
+  useEffect(() => {
+    setOpenMobile(false);
+  }, [pathname]);
 
   function submitSearch(e) {
     e.preventDefault();
     const query = q.trim();
     if (!query) return;
-    setSearchOpen(false);
     setQ("");
     router.push(`/search?q=${encodeURIComponent(query)}`);
   }
 
-  // console.log(categories);
-  
+  // "/" matches only itself; every other entry also matches its sub-routes.
+  function isActive(href) {
+    return href === "/" ? pathname === "/" : pathname.startsWith(href);
+  }
 
   return (
     <header className="header">
       <div className="container navbar">
-        <div style={{display:'flex'}}>
         <button
           className="menuBtn"
           onClick={() => setOpenMobile((v) => !v)}
           aria-label="Menu"
+          aria-expanded={openMobile}
         >
-          ☰
+          <BurgerIcon />
         </button>
-        <Link href="/" className="brand">
-          <Image
-            src="/logo-fat7.png"
-            alt="FAT7 3D Printing"
-            width={120}
-            height={36}
-            priority
-          />
+
+        <Link href="/" className="brand" aria-label={`${site.name} — home`}>
+          <Image src="/brand/fath-logo.png" alt={site.name} width={190} height={125} priority />
         </Link>
-</div>
-        {/* Desktop nav */}
-          <div className="nav-small-size"></div>
-        <nav className="nav">
-          <Link href="/">Home</Link>
-          {/* drop down menu */}
-          <div
-            className={`navItem hasMenu ${openMenu ? "isOpen" : ""}`}
-            // ref={dropdownRef}
-          >
-            
-            <button
-              className="menuTrigger"
-              aria-haspopup="true"
-              aria-expanded={openMenu}
-              onMouseOver={() => setOpenMenu((v) => !v)}
-            >
-              Collections <Chev open={openMenu} />
-            </button>
-            <div
-              className="dropdownMenu"
-              onMouseLeave={() => setOpenMenu((v) => !v)}
-            >
-              {categories.length > 0 ? (
-              categories.map((cat) => (
-                <Link
-                  key={cat.id}
-                  href={`/category/${cat.slug || cat.name}`}
-                  className="dropLink"
-                >
-                  {cat.name || cat.title}
-                </Link>
-              ))
-            ) :(<>
-              <Link href="/category/keychains" className="dropLink">
-                Keychains
-              </Link>
-              <Link href="/category/figurines" className="dropLink">
-                Figurines & Busts
-              </Link>
-              <Link href="/category/tools" className="dropLink">
-                Tools & Gadgets
-              </Link>
-              <Link href="/category/home-decor" className="dropLink">
-                Home Décor
-              </Link>
-              <Link href="/category/seasonal" className="dropLink">
-                Seasonal
-              </Link>
-              </>
-            )}
-            </div>
-          </div>
 
-          <Link id="events" href={`/category/${season.name}/`}>{season.name}</Link>
-          <Link href="/services">Services</Link>
-          <Link href="/business-deals">Business Deals</Link>
-
-          {/* <Link href="#cta" className="btn btn-primary">Get Started</Link> */}
+        <nav className="nav" aria-label="Primary">
+          {site.nav.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={isActive(item.href) ? "isActive" : undefined}
+              aria-current={isActive(item.href) ? "page" : undefined}
+            >
+              {item.label}
+            </Link>
+          ))}
         </nav>
 
-        
-        <div className="cart-container">
-          {/* Expanding search */}
-          <div
-            className={`searchWrap ${searchOpen ? "active" : ""}`}
-            ref={searchRef}
-          >
-            <form onSubmit={submitSearch} className="searchForm bigscreen-search" role="search">
-              <input
-                type="search"
-                placeholder="Search models…"
-                value={q}
-                onChange={(e) => setQ(e.target.value)}
-                onFocus={() => setSearchOpen(true)}
-                className="searchInput"
-                aria-label="Search"
-                ref={searchRef}
-              />
-              <button
-                type={searchOpen ? "submit" : "button"}
-                className="searchBtn"
-                aria-label="Search"
-                onClick={() => {
-                  setSearchOpen((v) => (v ? v : true))
-                  inputRef.current?.focus();
-                }}
-              >
-                <FontAwesomeIcon icon={faMagnifyingGlass} size="lg" />
-              </button>
-            </form>
-          </div>
-          <Link href={'/wishlist'}>
-          <FontAwesomeIcon
-            icon={faHeart}
-            size="lg"
-            style={{ color: "#ffffff" }}
+        <div className="navActions">
+          <form onSubmit={submitSearch} className="searchForm" role="search">
+            <input
+              type="search"
+              placeholder="Search..."
+              value={q}
+              onChange={(e) => setQ(e.target.value)}
+              className="searchInput"
+              aria-label="Search products"
             />
-            </Link>
-          {count > 0 && <p id="nav-cart-items">{count}</p>}
-          <Link id="nav-cart" href={"/cart"}>
-            <FontAwesomeIcon
-              icon={faCartShopping}
-              size="lg"
-              style={{ color: "#ffffff" }}
-            />
-          </Link>
-        
-        </div>
+            <button type="submit" className="searchBtn" aria-label="Search">
+              <SearchIcon />
+            </button>
+          </form>
 
-        {/* Mobile burger */}
+          <Link href="/cart" className="cartBtn" aria-label={`Cart, ${count} items`}>
+            <CartIcon />
+            <span className="cartCount">{count}</span>
+          </Link>
+
+          <a
+            className="btn btn-primary contactBtn"
+            href={site.whatsapp}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <WhatsAppIcon />
+            Contact Us
+          </a>
+        </div>
       </div>
 
-      {/* Mobile drawer */}
       {openMobile && (
         <div className="mobileNav">
           <div className="container mobileNavInner">
-            <details>
-              <summary className="mobileDrop">Collections <Chev open={openMenu} /></summary>
-              <ul className="mobileDropMenu">
-                <li>
-                  <Link
-                  href="/category/keychains"
-                  onClick={() => setOpenMobile(false)}
-                  >
-                  Keychains
-                </Link>
-                </li>
-                <li>
-
-                <Link
-                  href="/category/figurines"
-                  onClick={() => setOpenMobile(false)}
-                  >
-                  Figurines & Busts
-                </Link>
-                  </li>
-                  <li>
-                  
-                <Link
-                  href="/category/tools"
-                  onClick={() => setOpenMobile(false)}
-                  >
-                  Tools & Gadgets
-                </Link>
-                    </li>
-                    <li>
-
-                <Link
-                  href="/category/home-decor"
-                  onClick={() => setOpenMobile(false)}
-                  >
-                  Home Décor
-                </Link>
-                  </li>
-                  <li>
-
-                <Link
-                
-                href="/category/seasonal"
-                onClick={() => setOpenMobile(false)}
-                >
-                  Seasonal
-                </Link>
-                  </li>
-              </ul>
-            </details>
-
-            <Link href="#change-by-season" onClick={() => setOpenMobile(false)}>
-              {season.name}
-            </Link>
-            <Link href="/services" onClick={() => setOpenMobile(false)}>
-              Services
-            </Link>
-            <Link href="/business-deals" onClick={() => setOpenMobile(false)}>
-              Business Deals
-            </Link>
-
-            {/* Mobile search (full width) */}
-            {/* <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                router.push(`/search?q=${encodeURIComponent(q)}`);
-                setOpenMobile(false);
-              }}
-              className="mobileSearch"
-            >
-              <input
-                type="search"
-                placeholder="Search models…"
-                value={q}
-                onChange={(e) => setQ(e.target.value)}
-              />
-              <button type="submit">{searchIcon()}</button>
-            </form> */}
-
-
-            <form onSubmit={submitSearch} className="searchForm" role="search">
-              <input
-                type="search"
-                placeholder="Search models…"
-                value={q}
-                onChange={(e) => setQ(e.target.value)}
-                // onFocus={() => setSearchOpen(true)}
-                className="searchInput"
-                aria-label="Search"
-                // ref={searchRef}
-              />
-              {/* <button
-                type={searchOpen ? "submit" : "button"}
-                className="searchBtn"
-                aria-label="Search"
-                onClick={() => {
-                  setSearchOpen((v) => (v ? v : true))
-                  inputRef.current?.focus();
-                }}
+            {site.nav.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={isActive(item.href) ? "isActive" : undefined}
               >
-                <FontAwesomeIcon icon={faMagnifyingGlass} size="lg" />
-              </button> */}
+                {item.label}
+              </Link>
+            ))}
+
+            <form onSubmit={submitSearch} className="mobileSearch" role="search">
+              <input
+                type="search"
+                placeholder="Search..."
+                value={q}
+                onChange={(e) => setQ(e.target.value)}
+                aria-label="Search products"
+              />
+              <button type="submit" aria-label="Search">
+                <SearchIcon />
+              </button>
             </form>
-          
+
+            <a
+              className="btn btn-primary btn-block"
+              href={site.whatsapp}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <WhatsAppIcon />
+              Contact Us
+            </a>
           </div>
         </div>
-        
       )}
     </header>
   );
 }
 
-/* icons */
-function searchIcon() {
+/* ===== Icons ===== */
+
+function SearchIcon() {
   return (
-    <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+    <svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true">
       <path
         fill="currentColor"
         d="M21 20.3l-4.6-4.6a7.5 7.5 0 10-1.3 1.3L19.7 21 21 20.3zM10.5 17a6.5 6.5 0 110-13 6.5 6.5 0 010 13z"
@@ -321,20 +158,33 @@ function searchIcon() {
     </svg>
   );
 }
-function Chev({ open }) {
+
+function CartIcon() {
   return (
-    <svg
-      viewBox="0 0 24 24"
-      width="16"
-      height="16"
-      aria-hidden="true"
-      style={{
-        marginLeft: 6,
-        transform: open ? "rotate(180deg)" : "rotate(0deg)",
-        transition: "transform 0.2s ease",
-      }}
-    >
-      <path fill="currentColor" d="M7 10l5 5 5-5z" />
+    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+      <path
+        fill="currentColor"
+        d="M7 18a2 2 0 100 4 2 2 0 000-4zm10 0a2 2 0 100 4 2 2 0 000-4zM6.2 6h14.6a1 1 0 01.98 1.2l-1.5 7A1 1 0 0119.3 15H8.1a1 1 0 01-.98-.8L5.2 4.8A1 1 0 004.22 4H2.5a1 1 0 110-2h1.72a3 3 0 012.94 2.4L7.4 6z"
+      />
+    </svg>
+  );
+}
+
+function WhatsAppIcon() {
+  return (
+    <svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true">
+      <path
+        fill="currentColor"
+        d="M12.04 2c-5.5 0-9.96 4.46-9.96 9.96 0 1.76.46 3.48 1.34 5L2 22l5.18-1.36a9.9 9.9 0 004.86 1.24h.01c5.5 0 9.96-4.46 9.96-9.96 0-2.66-1.04-5.16-2.92-7.04A9.9 9.9 0 0012.04 2zm5.83 14.2c-.25.7-1.44 1.33-1.99 1.38-.53.05-1 .24-3.37-.7-2.84-1.12-4.64-3.99-4.78-4.18-.14-.19-1.14-1.51-1.14-2.89s.72-2.05.98-2.33c.25-.28.55-.35.74-.35.18 0 .37 0 .53.01.17.01.4-.06.63.48.23.56.79 1.94.86 2.08.07.14.12.3.02.49-.1.19-.15.3-.29.47-.14.16-.3.36-.43.49-.14.14-.29.29-.12.57.16.28.73 1.2 1.56 1.95 1.07.95 1.98 1.25 2.26 1.39.28.14.44.12.6-.07.17-.19.7-.81.88-1.09.19-.28.37-.23.62-.14.25.09 1.63.77 1.9.91.28.14.46.21.53.32.07.12.07.65-.18 1.35z"
+      />
+    </svg>
+  );
+}
+
+function BurgerIcon() {
+  return (
+    <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+      <path fill="currentColor" d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z" />
     </svg>
   );
 }

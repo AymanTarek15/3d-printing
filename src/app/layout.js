@@ -1,50 +1,48 @@
-
-// 
-
-// New code
-
 import "../app/styles/variables.css";
+import "./globals.css";
 import "../app/styles/layout.css";
 import "../app/styles/sections.css";
-import "./globals.css"
-import { site } from "@/app/lib/site"
-import Navbar from "@/components/layout/Navbar"
-import Footer from "@/components/layout/Footer"
-import "@fortawesome/fontawesome-svg-core/styles.css"; // Import Font Awesome CSS
-import { config } from "@fortawesome/fontawesome-svg-core";
-import { getCategories, getSeason } from "./lib/api";
+import "../app/styles/pages.css";
+
+import { site } from "@/app/lib/site";
+import Navbar from "@/components/layout/Navbar";
+import Footer from "@/components/layout/Footer";
+import "@fortawesome/fontawesome-svg-core/styles.css";
 import Providers from "./Providers";
+import { headers } from "next/headers";
 import localFont from "next/font/local";
-import { Inter, Space_Grotesk } from "next/font/google";
-
-
-
-// config.autoAddCss = false; // Disable automatic CSS insertion
+import { Inter, Fraunces, Caveat } from "next/font/google";
 
 export const metadata = {
-title: {
-default: site.name,
-template: `%s · ${site.name}`,
-},
-description: site.description,
-metadataBase: new URL("https://3d-printing-six.vercel.app"),
-}
+  title: {
+    default: site.name,
+    template: `%s · ${site.name}`,
+  },
+  description: site.description,
+  metadataBase: new URL("https://3d-printing-six.vercel.app"),
+};
 
-
-// UI type system: Space Grotesk for headings, Inter for body.
+// UI type system: Fraunces (serif) for display headings, Inter for body text,
+// Caveat for the handwritten annotations in the brand layouts.
 const bodyFont = Inter({
   subsets: ["latin"],
   variable: "--font-body",
   display: "swap",
 });
 
-const displayFont = Space_Grotesk({
+const displayFont = Fraunces({
   subsets: ["latin"],
   weight: ["500", "600", "700"],
   variable: "--font-display",
   display: "swap",
 });
 
+const scriptFont = Caveat({
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
+  variable: "--font-script",
+  display: "swap",
+});
 
 // Local font imports
 const ahNaskhHadith = localFont({
@@ -72,25 +70,29 @@ const goudyOldStyle = localFont({
 });
 
 export default async function RootLayout({ children }) {
+  // The admin panel brings its own chrome, so the public navbar and footer are
+  // left off there. Middleware forwards the pathname for this check.
+  const pathname = (await headers()).get("x-pathname") || "";
+  const isAdmin = pathname.startsWith("/dashboard");
 
-  
-  const categories= await getCategories();
-  const season=await getSeason();
-  // console.log(season);
-  
-
-  
-return (
-<html lang="en"
-className={`${bodyFont.variable} ${displayFont.variable} ${ahNaskhHadith.variable} ${blabeloo.variable} ${superCreamy.variable} ${goudyOldStyle.variable}`}
+  return (
+    <html
+      lang="en"
+      className={`${bodyFont.variable} ${displayFont.variable} ${scriptFont.variable} ${ahNaskhHadith.variable} ${blabeloo.variable} ${superCreamy.variable} ${goudyOldStyle.variable}`}
     >
-<body>
-  <Providers>
-<Navbar categories={categories} season={season} />
-<main>{children}</main>
-<Footer />
-</Providers>
-</body>
-</html>
-)
+      <body>
+        <Providers>
+          {isAdmin ? (
+            children
+          ) : (
+            <>
+              <Navbar />
+              <main>{children}</main>
+              <Footer />
+            </>
+          )}
+        </Providers>
+      </body>
+    </html>
+  );
 }

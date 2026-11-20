@@ -1,107 +1,134 @@
-/* ===== Header layout ===== */
-/* No extra header padding — the inner .container already provides the gutter,
-   so the navbar edges line up exactly with the hero and other sections. */
-.header { padding-left: 0; padding-right: 0; }
-.navbar { margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
-.brand { margin-left: 0; }
+/* ==========================================================================
+   Header / primary navigation
+   White bar, nine nav items with an amber active underline, persistent search.
+   ========================================================================== */
 
-ul { padding-left: 0 !important; }
-li { list-style: none; }
+.header {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: saturate(180%) blur(10px);
+  border-bottom: 1px solid var(--border);
+}
+
+.navbar {
+  min-height: var(--header-h);
+  display: flex; align-items: center; gap: 16px;
+}
+
+.brand { display: flex; align-items: center; flex: none; text-decoration: none; }
+.brand img { height: 54px; width: auto; object-fit: contain; }
 
 /* ===== Desktop nav ===== */
-.nav { display: flex; align-items: center; gap: 30px; }
-/* Empty spacer div in the markup — remove it from the flex row so nav centers */
-.nav-small-size { display: none; }
 
-.navItem { position: relative; }
-.menuTrigger {
-  background: transparent; border: 0; color: var(--brand-contrast);
-  font-weight: 600; cursor: pointer; display: inline-flex; align-items: center;
-  font-size: 1rem; padding: 4px 0;
+.nav { display: none; align-items: center; gap: 17px; margin: 0 auto; }
+.nav a {
+  position: relative;
+  color: var(--heading); text-decoration: none;
+  font-weight: 500; font-size: 0.82rem; white-space: nowrap;
+  padding: 7px 0;
+  transition: color var(--t-fast);
+}
+.nav a::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px;
+  background: var(--gold); border-radius: 2px;
+  transform: scaleX(0); transform-origin: left;
+  transition: transform var(--t);
+}
+.nav a:hover { color: var(--gold-600); }
+.nav a:hover::after { transform: scaleX(1); }
+.nav a.isActive { color: var(--heading); font-weight: 600; }
+.nav a.isActive::after { transform: scaleX(1); }
+
+.menuBtn {
+  display: inline-grid; place-items: center;
+  background: transparent; border: 0; padding: 6px;
+  color: var(--brand); cursor: pointer; flex: none;
 }
 
-/* Dropdown as a clean white card */
-.dropdownMenu {
-  position: absolute; top: calc(100% + 12px); left: 0;
-  min-width: 230px; background: var(--surface); color: var(--text);
-  border: 1px solid var(--border); border-radius: var(--r-md);
-  box-shadow: var(--shadow-lg); padding: 8px; z-index: 60;
+@media (min-width: 1200px) {
+  .nav { display: flex; }
+  .menuBtn { display: none; }
 }
-.dropLink {
-  display: block; padding: 10px 12px; border-radius: var(--r-sm);
-  text-decoration: none; color: var(--text); font-weight: 600;
-  transition: background var(--t-fast), color var(--t-fast);
-}
-.dropLink:hover { background: var(--brand-background) !important; color: var(--brand) !important; }
-.dropdownMenu a:hover { background: var(--brand-background); color: var(--brand); }
 
-#events { color: var(--cta); font-weight: 700; }
-#events:hover { color: var(--cta-hover); }
+/* ===== Right-hand actions ===== */
 
-/* ===== Search ===== */
-.searchWrap {
-  display: inline-flex; align-items: center; height: 38px; position: relative;
-  width: 38px; transition: width var(--t); margin-left: 6px; vertical-align: middle;
-}
-.searchWrap.active { width: 260px; }
-.searchForm { position: relative; display: flex; align-items: center; height: 100%; width: 100%; }
+.navActions { display: flex; align-items: center; gap: 10px; margin-left: auto; flex: none; }
+
+.searchForm { position: relative; display: none; align-items: center; }
 .searchInput {
-  position: absolute; inset: 0; width: 100%; height: 100%; box-sizing: border-box;
-  padding: 8px 40px 8px 14px; border-radius: var(--r-pill);
-  border: 1px solid transparent; background: rgba(255,255,255,.14);
-  color: #fff; outline: none; opacity: 0;
-  transition: opacity var(--t-fast), background var(--t-fast), border-color var(--t-fast);
+  width: 190px; padding: 9px 38px 9px 15px;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  color: var(--text); font: inherit; font-size: 0.84rem;
+  outline: none;
+  transition: border-color var(--t-fast), background var(--t-fast);
 }
-.searchWrap.active .searchInput { opacity: 1; border-color: rgba(255,255,255,.4); }
-.searchInput::placeholder { color: rgba(255,255,255,.8); }
+.searchInput::placeholder { color: var(--muted-2); }
+.searchInput:focus { border-color: var(--brand); background: var(--surface); }
+
 .searchBtn {
-  position: absolute; right: 5px; top: 50%; transform: translateY(-50%);
-  height: 30px; width: 30px; border-radius: var(--r-pill); border: 0; cursor: pointer;
-  display: grid; place-items: center; color: #fff; background: transparent;
-  transition: background var(--t-fast);
+  position: absolute; right: 4px;
+  height: 30px; width: 30px; border-radius: 50%;
+  border: 0; cursor: pointer; background: transparent;
+  display: grid; place-items: center; color: var(--muted);
+  transition: color var(--t-fast);
 }
-.searchBtn:hover { background: rgba(255,255,255,.18); }
+.searchBtn:hover { color: var(--brand); }
 
-/* ===== Cart / wishlist cluster ===== */
-.cart-container { display: flex; align-items: center; gap: 18px; position: relative; }
-.cart-container a { display: inline-flex; align-items: center; }
-#nav-cart { margin-left: 2px; }
-
-/* Count badge on the cart icon */
-#nav-cart-items {
-  position: absolute; right: -8px; top: -9px;
-  min-width: 18px; height: 18px; padding: 0 5px;
-  border-radius: var(--r-pill); background: var(--cta); color: #1c1600;
-  font-size: 11px; font-weight: 800; line-height: 18px; text-align: center;
-  box-shadow: 0 0 0 2px var(--brand); pointer-events: none; margin: 0;
+.cartBtn {
+  position: relative; display: inline-flex; align-items: center; gap: 6px;
+  padding: 8px 8px; border-radius: var(--r-sm);
+  color: var(--heading); text-decoration: none;
+  transition: color var(--t-fast);
 }
+.cartBtn:hover { color: var(--brand); }
 
-/* Keep nav link color white on the dark header (underline handled in layout.css) */
-.header .nav a, .header .menuTrigger { color: var(--brand-contrast); }
-.menuTrigger:hover { color: var(--cta); }
-
-/* ...but dropdown links sit on a white card, so they must stay dark */
-.header .nav .dropdownMenu a { color: var(--text); }
-.header .nav .dropdownMenu a:hover { color: var(--brand); }
-/* the header-wide underline shouldn't show inside the dropdown */
-.header .nav .dropdownMenu a::after { display: none; }
-
-/* ===== Mobile ===== */
-.menuBtn { background: transparent; border: 0; font-size: 22px; color: var(--brand-contrast); cursor: pointer; }
-.mobileNav { background: var(--brand-600); }
-.mobileNavInner { padding: 16px 0; display: grid; gap: 14px; }
-.mobileNavInner a, .mobileDrop { color: #fff; text-decoration: none; font-weight: 600; }
-.mobileDrop { list-style: none; cursor: pointer; font-weight: 700; }
-.mobileDropMenu { display: grid; gap: 12px; padding: 10px 0 6px 12px; }
-.mobileDropMenu a { color: rgba(255,255,255,.9); font-weight: 500; }
-
-@media (max-width: 767px) {
-  .nav { display: none; }
-  .header { padding: 0; }
-  .bigscreen-search { display: none; }
-  .searchInput { opacity: 1; border-color: rgba(255,255,255,.35); height: 32px; }
-  .mobileNavInner .searchInput { position: static; opacity: 1; }
-  #nav-cart-items { right: -6px; }
+.cartCount {
+  min-width: 19px; height: 19px; padding: 0 5px;
+  border-radius: var(--r-pill);
+  background: var(--gold); color: #26190a;
+  font-size: 0.7rem; font-weight: 700; line-height: 19px;
+  text-align: center;
 }
 
-@media (min-width: 768px) { .menuBtn { display: none; } }
+.contactBtn { padding: 11px 20px; font-size: 0.85rem; border-radius: var(--r-pill); }
+
+@media (min-width: 1040px) { .searchForm { display: flex; } }
+@media (max-width: 1199px) {
+  .contactBtn { display: none; }
+  .brand { margin-right: auto; }
+}
+@media (max-width: 1039px) { .searchForm { display: none; } }
+
+/* ===== Mobile drawer ===== */
+
+.mobileNav {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  box-shadow: var(--shadow-md);
+  max-height: calc(100vh - var(--header-h));
+  overflow-y: auto;
+}
+.mobileNavInner { padding: 14px 0 22px; display: grid; gap: 2px; }
+.mobileNavInner > a {
+  color: var(--heading); text-decoration: none;
+  font-weight: 500; font-size: 0.94rem;
+  padding: 11px 4px; border-bottom: 1px solid var(--border);
+}
+.mobileNavInner > a.isActive { color: var(--gold-600); font-weight: 600; }
+
+.mobileSearch { display: flex; gap: 8px; margin-top: 14px; }
+.mobileSearch input {
+  flex: 1; border-radius: var(--r-sm);
+  border: 1px solid var(--border-strong);
+  padding: 11px 14px; font: inherit; font-size: 0.9rem;
+  background: var(--surface); color: var(--text);
+}
+.mobileSearch input:focus { outline: none; border-color: var(--brand); }
+.mobileSearch button {
+  width: 46px; border-radius: var(--r-sm);
+  border: 1px solid var(--border-strong); background: var(--surface);
+  display: grid; place-items: center; color: var(--brand); cursor: pointer;
+}
+.mobileNavInner .btn { margin-top: 12px; }
